@@ -1,0 +1,142 @@
+.item .container{
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.container .centered{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.item .img-responsive{
+    width: 100%;
+    height: 50%;
+    opacity: 0.9;
+}
+
+.item h3{
+    color: azure;
+    margin-left: 25px;
+}
+
+.item h1{
+    color: white;
+}
+a:hover{
+    color: red;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+ }
+
+ .price-template {
+    font-weight: 600;
+ }
+
+.price-template:after {
+      content: '';
+      display: block;
+      clear: both; 
+}
+  
+.item-new-price, .item-old-price, .item-price {
+    font-size: 17px; 
+}
+  
+.item-price{
+    color: #FE980F;
+}
+.item-new-price {
+    float: left;
+    padding-left: 20%;
+    color: #FE980F;
+}
+  
+
+
+h4,h3{
+    color: #FE980F ;
+}
+
+/* rating */
+.rating-css div {
+    color: #ffe400;
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 200;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 20px 0;
+  }
+  .rating-css input {
+    display: none;
+  }
+  .rating-css input + label {
+    font-size: 20px;
+    text-shadow: 1px 1px 0 #8f8420;
+    cursor: pointer;
+  }
+  .rating-css input:checked + label ~ label {
+    color: #b4afaf;
+  }
+  .rating-css label:active {
+    transform: scale(0.8);
+    transition: 0.3s ease;
+  }
+   .checked{
+    color: #ffe400;
+    margin-top: 6%;
+  } 
+  .not-checked{
+    margin-top: 3%;
+  }
+
+  .whatsapp-chat{
+    bottom: 10px;
+    left: 10px;
+    position: fixed;
+  }
+
+  .carousel-item h1{
+    color: aliceblue;
+  }
+.ms-n5 {
+    margin-left: 40px;
+}
+
+label i{
+  color: #FE980F;
+}
+
+.sort_box{
+ float: right;
+ margin-right: 50px;
+ margin-bottom: 15px;
+
+}
+.sort{
+  height: 35px;
+  width: 300px;
+  border: medium none;
+
+}
+
+.user-profile a{
+  color : #FE980F;
+}
+
+.user-profile a:hover{
+  color : #363330;
+}
+
+a .updateBookLike{
+  color: #b4afaf;
+}
+
+/* End of Star Rating */
