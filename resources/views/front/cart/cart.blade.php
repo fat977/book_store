@@ -11,6 +11,7 @@
             </ol>
         </div>
         <div class="table-responsive cart_info CartItems Reviews">
+            <span id="quantity_error" style="color: red"></span> 
             <table class="table table-condensed">
                 @if (count($getCartItems) > 0)
                     <thead>
@@ -61,7 +62,6 @@
                                         <a class="change_quantity cart_quantity_up" href=""> + </a>
                                         <input class="cart_quantity_input" type="text" name="quantity" value="{{$item['quantity']}}" min="1" max="2" autocomplete="off" size="2">
                                         <a class="change_quantity cart_quantity_down" href=""> - </a>                                    
-                                        <span id="quantity_error" style="color: red"></span>
                                     </div>                              
                                 @endif
 
@@ -71,7 +71,6 @@
                                         <a class="cart_quantity_up_1 change_quantity" href=""> + </a>
                                         <input class="cart_quantity_input" type="text" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="2" required>
                                         <a class="cart_quantity_down change_quantity" href=""> - </a>
-                                        <span id="quantity_error" style="color: red"></span> 
                                     </div>                                     
                                 @endif
 

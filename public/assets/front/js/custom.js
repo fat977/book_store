@@ -55,7 +55,7 @@ $(document).ready(function(){
 			$('#quantity_error').html(quantity_error);
 			setTimeout(function(){
 				$("#quantity_error").css({'display':'none'});
-			},3000);	
+			},6000);	
 		}	
 	});
 
