@@ -51,9 +51,89 @@ class BooksController extends Controller
     }
 
     public function downloadedBooks(){
-        $books = DownloadedBook::with(['authors','categories'])->where('status',1)->get(); 
+        $books = DownloadedBook::with(['authors','categories','like'])->where('status',1)->get(); 
 
         return view('front.books.download-books',compact('books'));
+    }
+
+    public function like(Request $request){
+        $like_s = $request->like_s;
+        $book_id = $request->book_id;
+        $change_like =0;
+
+        $like = Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)->first();
+
+        if(!$like){
+            $new_like = new Like();
+            $new_like->book_id =$book_id;
+            $new_like->user_id =Auth::user()->id;
+            $new_like->book_like = 1;
+            $new_like->save();
+
+            $is_like = 1;
+        }
+
+        elseif($like->book_like == 1){
+            Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)->delete();
+
+            $is_like = 0;
+        }
+
+        elseif($like->book_like == 0){
+            Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)
+            ->update(['book_like'=>1]);
+
+            $is_like = 1;
+            $change_like=1;
+        }
+
+        $respone = array(
+            'is_like'=> $is_like,
+            'change_like'=>$change_like
+        );
+
+        return response()->json($respone,200);
+
+    }
+
+    public function dislike(Request $request){
+        $like_s = $request->like_s;
+        $book_id = $request->book_id;
+        $change_dislike=0;
+
+        $dislike = Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)->first();
+
+        if(!$dislike){
+            $new_like = new Like();
+            $new_like->book_id =$book_id;
+            $new_like->user_id =Auth::user()->id;
+            $new_like->book_like = 0;
+            $new_like->save();
+
+            $is_dislike = 1;
+        }
+
+        elseif($dislike->book_like == 0){
+            Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)->delete();
+
+            $is_dislike = 0;
+        }
+
+        elseif($dislike->book_like == 1){
+            Like::where('book_id',$book_id)->where('user_id',Auth::user()->id)
+            ->update(['book_like'=>0]);
+
+            $is_dislike = 1;
+            $change_dislike=1;
+        }
+
+        $respone = array(
+            'is_dislike'=> $is_dislike,
+            'change_dislike' => $change_dislike,
+        );
+
+        return response()->json($respone,200);
+
     }
 
 

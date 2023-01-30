@@ -79,6 +79,11 @@ Route::namespace('front')->group(function(){
         Route::get('cancel', [PaypalController::class,'cancel'])->name('cancel');
         Route::get('success', [PaypalController::class,'success'])->name('success');
 
+        //likes
+        Route::post('book-like',[BooksController::class,'like']);
+
+         //dislikes
+         Route::post('book-dislike',[BooksController::class,'dislike']);
 
 
     });
@@ -124,9 +129,6 @@ Route::namespace('front')->group(function(){
     Route::get('/book-download/{id}',[BooksController::class,'detailsDownloaded']);
     Route::get('/download/{file}', [BooksController::class, 'download']);
     Route::post('/add-to-download', [BooksController::class,'addToDownload']);
-
-    Route::post('update-book-like',[BooksController::class,'updateBookLike']);
-    Route::post('/add-to-like', [BooksController::class,'addToLike']);
 
 
 });

@@ -54,7 +54,7 @@ use App\Models\Book;
                                                             </button>
                                                         </p>
                                                         <p class="likeItem"></p> --}}
-                                                      {{--   <p class="text-center" style="font-size: 20px">
+                                                        {{--   <p class="text-center" style="font-size: 20px">
                                                             <input type="hidden" value="{{ $book['id'] }}" class="book_id">
                                                             @if ($book['book_like']==1)
                                                             <a class="updateBookLike" 
@@ -74,7 +74,49 @@ use App\Models\Book;
                                                                 <span>like</span>
                                                             @endif
                                                         </p> --}}
+
+                                                        @php
+                                                            $like_count = 0;
+                                                            $dislike_count = 0;
+
+                                                            $like_status = "btn-secondry";
+                                                            $dislike_status = "btn-secondry";
+                                                        @endphp
+
+                                                        @foreach ($book->like as $like)
+                                                            @php
+                                                                if($like->book_like == 1){
+                                                                    $like_count++;
+                                                                }
+                                                                if($like->book_like == 0){
+                                                                    $dislike_count++;
+                                                                }
+
+                                                                if(Auth::check()){
+                                                                    if($like->book_like == 1 && $like->user_id== Auth::user()->id ){
+                                                                        $like_status = "btn-success";  
+                                                                    }  
+                                                                    if($like->book_like == 0 && $like->user_id== Auth::user()->id ){
+                                                                        $dislike_status = "btn-danger";  
+                                                                    } 
+                                                                }
+                                                            
+                                                                                                                            
+                                                            @endphp
+                                                        @endforeach
+
+                                                        <button data-like="{{ $like_status }}" book-id="{{  $book['id'] }}_l" type="button" 
+                                                            class="like btn {{ $like_status }}">Like <i class="fas fa-thumbs-up"></i> 
+                                                            <b><span class="like_count">{{ $like_count }}</span></b>
+                                                        </button>
                                                         
+                                                        <button  data-like="{{ $dislike_status }}"  book-id="{{  $book['id'] }}_d" type="button" 
+                                                            class="dislike btn {{ $dislike_status }}">Dislike <i class="fas fa-thumbs-down"></i> 
+                                                            <b><span class="dislike_count">{{ $dislike_count }}</span></b>
+                                                        </button>
+                                                       
+
+                                                   
                                                     </div>
                                                 </div>
                                             </div>

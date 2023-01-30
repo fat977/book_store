@@ -1,4 +1,3 @@
-//const { parseInt } = require("lodash");
 $(document).ready(function(){
 	loadCart();
 	loadWishlist();
@@ -464,6 +463,93 @@ $(document).ready(function(){
 
 			}
 		
+			
+		});
+	});
+
+	//like
+	$('.like').on('click',function(e){
+		var like_s =$(this).attr('data-like');
+		var book_id = $(this).attr('book-id').slice(0,-2);
+		//book_id = book-id.slice(0,-2);
+		//alert(book_id);
+	
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data:{
+				'book_id':book_id,
+				'like_s':like_s
+			},
+			url:'/book-like',
+			method:'POST',
+			success:function(response){
+				if(response.is_like == 1){
+					$('*[book-id="'+ book_id +'_l"]').removeClass('btn-secondry').addClass('btn-success');
+					$('*[book-id="'+ book_id +'_d"]').removeClass('btn-danger').addClass('btn-secondry');
+
+					var count_like = $('*[book-id="'+ book_id +'_l"]').find('.like_count').text();
+					var new_like = parseInt(count_like)+1;
+					$('*[book-id="'+ book_id +'_l"]').find('.like_count').text(new_like);
+
+					if(response.change_like == 1){
+						var count_dislike = $('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text();
+						var new_dislike = parseInt(count_dislike)-1;
+						$('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text(new_dislike);
+					}
+				}
+				if(response.is_like == 0){
+					$('*[book-id="'+ book_id +'_l"]').removeClass('btn-success').addClass('btn-secondry');
+
+					var count_like = $('*[book-id="'+ book_id +'_l"]').find('.like_count').text();
+					var new_like = parseInt(count_like)-1;
+					$('*[book-id="'+ book_id +'_l"]').find('.like_count').text(new_like);
+				}
+			}
+			
+		});
+	});
+
+	//dislike
+	$('.dislike').on('click',function(e){
+		var like_s =$(this).attr('data-like');
+		var book_id = $(this).attr('book-id').slice(0,-2);
+		
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data:{
+				'book_id':book_id,
+				'like_s':like_s
+			},
+			url:'/book-dislike',
+			method:'POST',
+			success:function(response){
+				if(response.is_dislike == 1){
+					$('*[book-id="'+ book_id +'_d"]').removeClass('btn-secondry').addClass('btn-danger');
+					$('*[book-id="'+ book_id +'_l"]').removeClass('btn-success').addClass('btn-secondry');
+
+					var count_dislike = $('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text();
+					var new_dislike = parseInt(count_dislike)+1;
+					$('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text(new_dislike);
+
+					if(response.change_dislike == 1){
+						var count_like = $('*[book-id="'+ book_id +'_l"]').find('.like_count').text();
+						var new_like = parseInt(count_like)-1;
+						$('*[book-id="'+ book_id +'_l"]').find('.like_count').text(new_like);
+					}
+
+				}
+				if(response.is_dislike == 0){
+					$('*[book-id="'+ book_id +'_d"]').removeClass('btn-danger').addClass('btn-secondry');
+
+					var count_dislike = $('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text();
+					var new_dislike = parseInt(count_dislike)-1;
+					$('*[book-id="'+ book_id +'_d"]').find('.dislike_count').text(new_dislike);
+				}
+			}
 			
 		});
 	});

@@ -21,4 +21,8 @@ class DownloadedBook extends Model
     public function categories(){
         return $this->belongsTo(Category::class,'category_id')->select('id','category_name','status');
     }
+
+      public function like(){
+        return $this->hasMany(Like::class,'book_id');
+    }
 }

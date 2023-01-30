@@ -16,6 +16,8 @@ class Book extends Model
         return $this->belongsTo(Category::class,'category_id')->select('id','category_name','status');
     }
 
+  
+
     public function carts(){
         return $this->belongsTo(Cart::class,'book_id');
     }

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     use HasFactory;
+
+    public function book(){
+        return $this->belongsTo(DownloadedBook::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
